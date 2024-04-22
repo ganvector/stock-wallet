@@ -55,6 +55,21 @@ export abstract class Objects {
   }
 
   /**
+   * The function isUndefined checks if a given object is undefined and returns a
+   * boolean value.
+   * @param {any} obj - The `obj` parameter in the `isUndefined` function is of
+   * type `any`, which means it can be any data type (e.g., number, string, object,
+   * etc.). The function checks if the `obj` is equal to `undefined` and returns a
+   * boolean value indicating whether it
+   * @returns The function `isUndefined` is checking if the input `obj` is equal to
+   * `undefined` and returning a boolean value. If `obj` is equal to `undefined`,
+   * the function will return `true`, otherwise it will return `false`.
+   */
+  public static isUndefined(obj: any): boolean {
+    return obj === undefined;
+  }
+
+  /**
    * The function `requireNonNull` ensures that an object reference is not null and
    * throws an error with a specified message if it is.
    * @param {T} obj - The `obj` parameter is of type `T`, which means it can be any
