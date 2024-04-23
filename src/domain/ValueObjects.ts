@@ -1,1 +1,7 @@
-export abstract class ValueObject {}
+export abstract class ValueObject {
+  protected abstract value;
+
+  equals(obj: ValueObject) {
+    return this.value === obj.value;
+  }
+}

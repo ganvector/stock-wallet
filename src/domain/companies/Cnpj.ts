@@ -1,7 +1,7 @@
 import { ValueObject } from '../ValueObjects';
 
 export class Cnpj extends ValueObject {
-  private value: string;
+  protected value: string;
 
   private constructor(cnpj: string) {
     super();
@@ -12,7 +12,7 @@ export class Cnpj extends ValueObject {
     return new Cnpj(aCnpj.toString().replace(/\D/g, ''));
   }
 
-  private getValue() {
+  public getValue() {
     return this.value;
   }
 

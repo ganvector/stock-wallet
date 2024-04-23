@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { Identifier } from '../Identifier';
 
 export class CompanyID extends Identifier {
-  private value: string;
+  protected value: string;
 
   protected constructor(aValue: string) {
     super();

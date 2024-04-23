@@ -40,10 +40,10 @@ export class Notification implements ValidationHandler {
   }
 
   hasError(): boolean {
-    throw new Error('Method not implemented.');
+    return this.errors.length > 0;
   }
 
-  getErrors(): Error[] {
-    throw new Error('Method not implemented.');
+  getErrors(): DomainError[] {
+    return this.errors;
   }
 }
