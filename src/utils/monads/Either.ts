@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export type Either<E, A> = Left<E> | Right<A>;
+export interface Either<E, A> {
+  getValue(): A;
+  fold<B>(_onLeft: (error: E) => B, onRight: (value: A) => B): B;
+  getLeft(): E;
+}
 
-export class Left<E> {
+export class Left<E> implements Either<E, never> {
   constructor(private error: E) {}
 
-  map<U>(_fn: (value: never) => U): Either<E, never> {
-    return this;
+  getValue(): never {
+    throw new Error('No such element');
   }
 
-  flatMap<U>(_fn: (value: never) => Either<E, U>): Either<E, never> {
-    return this;
-  }
-
-  getError(): E {
+  getLeft(): E {
     return this.error;
   }
 
@@ -21,12 +21,8 @@ export class Left<E> {
   }
 }
 
-export class Right<A> {
+export class Right<A> implements Either<never, A> {
   constructor(private value: A) {}
-
-  map<U>(fn: (value: A) => U): Either<never, U> {
-    return new Right(fn(this.value));
-  }
 
   flatMap<U>(fn: (value: A) => Either<never, U>): Either<never, U> {
     return fn(this.value);
@@ -34,6 +30,10 @@ export class Right<A> {
 
   getValue(): A {
     return this.value;
+  }
+
+  getLeft(): never {
+    throw new Error('No such element');
   }
 
   fold<B>(_onLeft: (error: never) => B, onRight: (value: A) => B): B {
