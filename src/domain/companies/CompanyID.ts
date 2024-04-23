@@ -1,5 +1,6 @@
 import { randomUUID } from 'crypto';
 import { Identifier } from '../Identifier';
+import { Objects } from 'src/utils/Objects';
 
 export class CompanyID extends Identifier {
   protected value: string;
@@ -15,5 +16,9 @@ export class CompanyID extends Identifier {
 
   public static create() {
     return new CompanyID(randomUUID().toString());
+  }
+
+  public static from(id: string) {
+    return new CompanyID(Objects.requireNonNull(id));
   }
 }
