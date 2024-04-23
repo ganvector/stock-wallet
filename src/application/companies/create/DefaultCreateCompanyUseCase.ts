@@ -5,11 +5,11 @@ import { CreateCompanyUseCase } from './CreateCompanyUseCase';
 import { Either } from 'src/utils/monads/Either';
 import { Notification } from 'src/domain/validation/handlers/Notification';
 import { MonadsAPI } from 'src/utils/monads';
-
-interface CompanyGateway {}
+import { CompanyGateway } from 'src/domain/companies/CompanyGateway.interface';
+import { Company } from 'src/domain/companies/Company';
 
 export class DefaultCreateCompanyUseCase extends CreateCompanyUseCase {
-  private readonly companyGateway: CompanyGateway; //TODO fazer interface em outro arquivo
+  private readonly companyGateway: CompanyGateway;
 
   constructor(companyGateway: CompanyGateway) {
     super();
@@ -19,11 +19,28 @@ export class DefaultCreateCompanyUseCase extends CreateCompanyUseCase {
   public async execute(
     input: CreateCompanyCommand,
   ): Promise<Either<Notification, CreateCompanyOutput>> {
-    console.log(input);
     const notification = Notification.create();
+
+    const company = Company.create(input.cnpj, input.name);
+    company.validate(notification);
+
+    if (notification.hasError()) {
+      return MonadsAPI.Left(notification);
+    }
 
     return notification.hasError()
       ? MonadsAPI.Left(notification)
-      : MonadsAPI.Right(CreateCompanyOutput.create('1'));
+      : this.create(company);
+  }
+
+  private async create(
+    company: Company,
+  ): Promise<Either<Notification, CreateCompanyOutput>> {
+    try {
+      const createdCompany = await this.companyGateway.create(company);
+      return MonadsAPI.Right(CreateCompanyOutput.create(createdCompany));
+    } catch (error: any) {
+      return MonadsAPI.Left(Notification.create(error));
+    }
   }
 }
