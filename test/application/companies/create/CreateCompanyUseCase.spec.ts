@@ -6,7 +6,7 @@ import { Company } from 'src/domain/companies/Company';
 import { DefaultCreateCompanyUseCase } from 'src/application/companies/create/DefaultCreateCompanyUseCase';
 import { Objects } from 'src/utils/Objects';
 
-const categoryGateway = { create: function () {} } as unknown as CompanyGateway;
+const companyGateway = { create: function () {} } as unknown as CompanyGateway;
 
 describe('CreateCompany', () => {
   afterEach(() => {
@@ -21,12 +21,12 @@ describe('CreateCompany', () => {
 
     const expectedCompany = Company.create('25316853000168', 'Company Test');
 
-    const mock = Sinon.mock(categoryGateway)
+    const mock = Sinon.mock(companyGateway)
       .expects('create')
       .resolves(expectedCompany);
 
     const createCompanyUseCase = new DefaultCreateCompanyUseCase(
-      categoryGateway,
+      companyGateway,
     );
 
     const output = (await createCompanyUseCase.execute(command)).getValue();
@@ -45,10 +45,10 @@ describe('CreateCompany', () => {
     const expectedErrorCount = 2;
     const command = CreateCompanyCommand.create('Co', '25316853000167');
 
-    const mock = Sinon.mock(categoryGateway).expects('create').resolves({});
+    const mock = Sinon.mock(companyGateway).expects('create').resolves({});
 
     const createCompanyUseCase = new DefaultCreateCompanyUseCase(
-      categoryGateway,
+      companyGateway,
     );
 
     const notification = (
@@ -69,12 +69,12 @@ describe('CreateCompany', () => {
     );
     const expectedCompany = Company.create('25316853000168', 'Company Test');
 
-    const mock = Sinon.mock(categoryGateway)
+    const mock = Sinon.mock(companyGateway)
       .expects('create')
       .throws(new Error('Gateway Error'));
 
     const createCompanyUseCase = new DefaultCreateCompanyUseCase(
-      categoryGateway,
+      companyGateway,
     );
 
     const notification = (
