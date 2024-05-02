@@ -85,7 +85,7 @@ export abstract class Objects {
     obj: T,
     message: string = 'Object reference must not be null',
   ): T {
-    if (obj === null) {
+    if (obj === null || obj === undefined) {
       throw new Error(message);
     }
     return obj;
