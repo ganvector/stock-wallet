@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import { CompanyMongoDBGateway } from 'src/infra/company/persistence/CompanyMongoDBGateway';
 import { IntegrationTest } from 'test/infra/IntegrationTest';
 
-describe('GetCompanyById', () => {
+describe('GetCompanyById Integration', () => {
   const companyGateway = new CompanyMongoDBGateway();
 
   beforeAll(async () => {

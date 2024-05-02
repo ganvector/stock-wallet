@@ -8,7 +8,7 @@ import { Objects } from 'src/utils/Objects';
 import { CompanyMongoDBGateway } from 'src/infra/company/persistence/CompanyMongoDBGateway';
 import { IntegrationTest } from 'test/infra/IntegrationTest';
 
-describe('CreateCompanyUseCase', () => {
+describe('CreateCompanyUseCase Integration', () => {
   const companyGateway = new CompanyMongoDBGateway();
 
   beforeAll(async () => {
