@@ -142,3 +142,10 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+#docker database volume
+db
+
+# VS Code and Webstorm
+.vscode
+.idea
