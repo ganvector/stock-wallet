@@ -10,12 +10,12 @@ export class ThrowsValidationHandler implements ValidationHandler {
     throw DomainException.from(validation.getErrors());
   }
 
-  getErrors(): Array<DomainError> {
-    return [];
+  getErrors(): never {
+    throw new Error('Not implemented');
   }
 
-  hasError(): boolean {
-    return false;
+  hasError(): never {
+    throw new Error('Not implemented');
   }
 
   validate<T>(validation: Validation<T>): T {
