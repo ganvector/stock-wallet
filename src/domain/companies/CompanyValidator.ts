@@ -37,7 +37,6 @@ export class CompanyValidator extends Validator {
       this.getHandler().append(
         new DomainError("'nome' deve conter entre 3 e 255 caracteres"),
       );
-      return;
     }
   }
 
