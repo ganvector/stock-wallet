@@ -24,10 +24,6 @@ export class DefaultCreateCompanyUseCase extends CreateCompanyUseCase {
     const company = Company.create(input.cnpj, input.name);
     company.validate(notification);
 
-    if (notification.hasError()) {
-      return MonadsAPI.Left(notification);
-    }
-
     return notification.hasError()
       ? MonadsAPI.Left(notification)
       : this.create(company);
@@ -38,7 +34,7 @@ export class DefaultCreateCompanyUseCase extends CreateCompanyUseCase {
   ): Promise<Either<Notification, CreateCompanyOutput>> {
     try {
       const createdCompany = await this.companyGateway.create(company);
-      return MonadsAPI.Right(CreateCompanyOutput.create(createdCompany));
+      return MonadsAPI.Right(CreateCompanyOutput.from(createdCompany));
     } catch (error: any) {
       return MonadsAPI.Left(Notification.create(error));
     }
